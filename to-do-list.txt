@@ -1,0 +1,11 @@
+Lista a fazer das coisas necessarias ao Dataframe
+
+# Principal (Atualmente mais dificil)
+>> O programa atualmente está lendo todo o conteudo do arquivo e armazenando isto em um unico vetor.
+>> A ideia é tirar essa funcao e deixar com que a leitura seja dinâmica, ou seja coluna por coluna.
+>> Criar passar para o new unique_ptr a coluna alocada. (atualmente em um vetor temp).
+
+# Secundários (Mais "easy").
+>> Fazer um metodo que leia o numero de linhas do arquivo. DONE !! 
+>> Automatizar a leitura do modo que capte ; || \n. DONE !! 
+ 
