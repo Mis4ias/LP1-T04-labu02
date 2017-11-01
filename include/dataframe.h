@@ -13,6 +13,7 @@ class Frame {
 	void line_size();
 	void col_size();
 	void read_file();	
+	void read_col(size_t);	
 	void load_coluna(size_t);
 
 	private:
