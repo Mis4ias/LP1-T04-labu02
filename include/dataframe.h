@@ -7,6 +7,8 @@
 #include <vector>
 #include <memory>
 
+/** @brief Por agora a classe não está tendo grandes propósitos a não ser os 
+ * métodos no public */
 class Frame {
 	public:
 	Frame(const std::string&);
