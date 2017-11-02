@@ -133,7 +133,9 @@ void Frame::read_col(size_t index){
 		while(std::getline(this->_stream, buffer, '\n')){
 			std::istringstream ss(buffer);
 			std::string token;
-			while(std::getline(ss, token, ';')){
+			/* Talvez trocar esse while por um for onde o lim é o xsize */
+			
+			while(std::getline(ss, token, ';')){ 
 				if((now % this->_xsize) == index){
 					std::cout<<token<<std::endl;
 					now++;
