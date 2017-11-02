@@ -38,6 +38,11 @@ void Frame::line_size(){
 		this->_stream.close();
 	}
 }
+/** @brief no futuro essa funcão de tamanho da coluna deverá ser adptada para
+calcular o tamanho da coluna a ser alocada, para que não tenham bugs referentes
+a colunas com tamanhos diferentes. Talvez em vez de ter essa funcao o processo
+de calculo da coluna seja passada para o proprio metodo de alocar. */
+
 void Frame::col_size(){
 	if(this->_ysize == 0){
 		this->_stream.open(this->_filepath, std::fstream::in);
