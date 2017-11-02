@@ -11,6 +11,9 @@
 int main(int argc, char **argv){
 	Frame data("../data/data.csv");
 	data.read_col(1);
+	data.read_col(2);
+	data.read_col(3);
+	data.read_col(4);
 //	data.read_file();
 //	data.load_coluna(1);	
 //	data.load_coluna(2);	

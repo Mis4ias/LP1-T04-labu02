@@ -123,26 +123,30 @@ pendente das colunas, sem a necessidade de passar o conteudo do arquivo inteiro
 para um vetor auxiliar */
 
 void Frame::read_col(size_t index){
-	size_t now = 0;
-	index--;		
+	index = index-1;		
+	
 	this->col_size();	
 	this->line_size();
+	
 	std::vector<std::string> temp(this->_ysize);
 	std::string buffer;
 	this->_stream.open(this->_filepath, std::fstream::in);
 		while(std::getline(this->_stream, buffer, '\n')){
 			std::istringstream ss(buffer);
 			std::string token;
-			/* Talvez trocar esse while por um for onde o lim é o xsize */
-			
-			while(std::getline(ss, token, ';')){ 
-				if((now % this->_xsize) == index){
-					std::cout<<token<<std::endl;
-					now++;
+			for(size_t it = 0; it < this->_xsize; it++){
+				if(it - this->_xsize  == 2){
+					std::getline(ss, token, '\n');
+					std::cout<<"hehehe"<<token<<std::endl;
 				}
-			now++;
+				if(it - this->_xsize > 2){
+					std::getline(ss, token, ';');	
+					if(it == index - it / this->_xsize){
+						std::cout<<token<<std::endl;
+					}
+				}
+				
 			}
-		now++;
 		}
 	this->_stream.close();
 }

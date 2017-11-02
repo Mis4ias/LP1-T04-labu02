@@ -8,4 +8,4 @@ Lista a fazer das coisas necessarias ao Dataframe
 # Secundários (Mais "easy").
 >> Fazer um metodo que leia o numero de linhas do arquivo. DONE !! 
 >> Automatizar a leitura do modo que capte ; || \n. DONE !! 
- 
+>>REMOVER BUG DE PRECISAR DO : NA ultima col !!		 
