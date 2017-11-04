@@ -16,6 +16,7 @@ class Frame {
 	void col_size();
 	void read_file();	
 	void read_col(size_t);	
+	std::string break_line(std::string line, char separator);
 	void load_coluna(size_t);
 
 	private:
