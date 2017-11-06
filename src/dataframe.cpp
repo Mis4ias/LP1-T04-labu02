@@ -121,46 +121,34 @@ void Frame::load_coluna(size_t index){
 /** @brief Por agora essa funcao está sendo desenvolvida para ser a leitura inde
 pendente das colunas, sem a necessidade de passar o conteudo do arquivo inteiro
 para um vetor auxiliar */
-std::string Frame::break_line(std::string line, char separator){
-	std::string token;
-	for(std::string::iterator it = line.begin(); it != line.end(); it++){
-		if((*it) != separator)
-		token += (*it);
-	}
-return token;
-}
 void Frame::read_col(size_t index){
 	index = index-1;		
 	
 	this->col_size();	
 	this->line_size();
 	
-	std::vector<std::string> temp(this->_ysize);
+	std::vector<std::string> col_temp(this->_ysize);
 	std::string buffer;
 	this->_stream.open(this->_filepath, std::fstream::in);
-		while(std::getline(this->_stream, buffer, '\n')){
-			std::string token = this->break_line(buffer, ';');
-			std::cout<<"b: "<<token<<std::endl;			
-			//std::istringstream ss(buffer);
-			//std::string token;
-			/*for(size_t it = 0; it < this->_xsize; it++){
-					std::getline(ss, token, ';');	
-					if(it == index - it / this->_xsize){
-						std::cout<<token<<std::endl;
-					}
-				
-			}*/
-		/*	size_t it = 0;
-			while(ss.good()){
-				std::string token;
-				std::getline(ss, token, ';');
-				if(it == index - it / this->_xsize)
-					std::cout<<token<<std::endl;	
-			it++;
-			}*/
-				
-		
+		while(std::getline(this->_stream, buffer)){
+			buffer += ";";
+			std::istringstream ss(buffer);
+			std::string token;
+			
+			size_t offset = this->_xsize + 1;
+			
+			for(size_t it = 0; it < offset; it++){
+				std::getline(ss, token, ';');	
+				if(it == index - it / offset){
+					col_temp.push_back(token);
+				}
+			}	
 		}
 	this->_stream.close();
+	std::cout<<"col: "<<index<<std::endl;
+	for(std::vector<std::string>::iterator it = col_temp.begin(); it != col_temp.end(); it ++){
+		std::cout<<(*it);
+	}
+	std::cout<<std::endl;
 }
 
