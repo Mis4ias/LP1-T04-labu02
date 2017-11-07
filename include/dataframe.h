@@ -12,7 +12,7 @@
 class Frame {
 	public:
 	Frame(const std::string&);
-	void line_size();
+	void line_size(char);
 	void col_size();
 	void read_col(size_t, char);	
 

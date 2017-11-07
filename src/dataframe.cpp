@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <memory>
 
 /** @brief Construtor Paramétrizado, recebe uma string que é tratada como 
  caminho do arquivo 
@@ -28,13 +29,13 @@ Frame::Frame(const std::string& file_path){
  * ao tamanho da linha e tamanho da coluna, os valores achados são guardados nos
  * atributos _xsize e _ysize , respectivamentes.
 */
-void Frame::line_size(){
+void Frame::line_size(char delim){
 	if(this->_xsize == 0){
 		this->_stream.open(this->_filepath, std::fstream::in);
 		std::string dummy;
 		std::getline(this->_stream, dummy, '\n');
 		for(std::string::iterator it = dummy.begin(); it != dummy.end(); it++)
-			if((*it) == ';') this->_xsize++;
+			if((*it) == delim) this->_xsize++;
 		this->_stream.close();
 	}
 }
@@ -61,7 +62,7 @@ void Frame::read_col(size_t index, char delim){
 	this->_xsize = 0;
 	this->_ysize = 0;		
 	this->col_size();	
-	this->line_size();
+	this->line_size(delim);
 	
 	std::vector<std::string> col_temp(this->_ysize);
 	std::string buffer;
@@ -87,5 +88,8 @@ void Frame::read_col(size_t index, char delim){
 		std::cout<<" ";
 	}
 	std::cout<<std::endl;
+	/** Tentativa de alocação */
+	std::unique_ptr<Coluna> individual = create_coluna(col_temp);
+    this->_frame[index] = *individual;	
 }
 

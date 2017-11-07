@@ -18,6 +18,12 @@ int main(int argc, char **argv){
 
 	Frame Sacramento("../data/Sacramento.csv");
 	Sacramento.read_col(1, ',');
+	
+	Frame Delta("../data/delta.csv");
+	Delta.read_col(1, ',');
+	Delta.read_col(2, ',');
+	Delta.read_col(3, ',');
+	Delta.read_col(4, ',');
 
 	
 	
