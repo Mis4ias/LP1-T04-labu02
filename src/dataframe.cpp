@@ -58,7 +58,8 @@ pendente das colunas, sem a necessidade de passar o conteudo do arquivo inteiro
 para um vetor auxiliar */
 void Frame::read_col(size_t index, char delim){
 	index = index-1;		
-	
+	this->_xsize = 0;
+	this->_ysize = 0;		
 	this->col_size();	
 	this->line_size();
 	
@@ -81,8 +82,9 @@ void Frame::read_col(size_t index, char delim){
 		}
 	this->_stream.close();
 	std::cout<<"col: "<<index<<std::endl;
-	for(std::vector<std::string>::iterator it = col_temp.begin(); it != col_temp.end(); it ++){
-		std::cout<<(*it);
+	for(size_t it = 0; it < col_temp.size(); it++){
+		std::cout<<col_temp[it];
+		std::cout<<" ";
 	}
 	std::cout<<std::endl;
 }

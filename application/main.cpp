@@ -14,6 +14,12 @@ int main(int argc, char **argv){
 	data.read_col(2, ';');
 	data.read_col(3, ';');
 	data.read_col(4, ';');
+	
 
-return EXIT_SUCCESS;
+	Frame Sacramento("../data/Sacramento.csv");
+	Sacramento.read_col(1, ',');
+
+	
+	
+	return EXIT_SUCCESS;
 }
