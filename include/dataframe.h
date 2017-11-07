@@ -14,10 +14,7 @@ class Frame {
 	Frame(const std::string&);
 	void line_size();
 	void col_size();
-	void read_file();	
-	void read_col(size_t);	
-	std::string break_line(std::string line, char separator);
-	void load_coluna(size_t);
+	void read_col(size_t, char);	
 
 	private:
 		std::vector<std::string> _filecont;

@@ -53,75 +53,10 @@ void Frame::col_size(){
 	}
 }
 
-
-
-/** As dimensoes das colunas e linhas podem facilmente ser calculadas nesse metodo
- *  Como não se sabe ainda se o mesmo será definitivo, um prototipo de contagem 
- *  de colunas e linhas é feito acima.
- **/
-
-/** @brief Na primeira versao do código, como não se consegue ler apenas uma 
- * coluna por vez, a leitura é feita normalmente. o this->_stream refere-se ao
- * fstream armazenado no atributo da classe, é aberto com o caminho também armaze
- * nado.
-*/
-
-/** @brief O arquivo é completamente lido e jogado unicamente em um único vetor
-* sendo assim não se considera linha ou coluna por agora.
-*/
-void Frame::read_file(){
-	std::string buffer;
-	this->_stream.open(this->_filepath, std::fstream::in);
-	while(std::getline(this->_stream, buffer, '\n')){
-		std::istringstream ss(buffer);
-		std::string token;
-		while(std::getline(ss, token, ';'))
-		this->_filecont.push_back(token);
-	}
-	this->_stream.close();
-}
-
-
-/** @biref Esse é o prototipo para quebrar o vetor, que armazenou todo o conteudo 
- do arquivo. Um novo vetor é criado que será como se fosse a coluna simulada
- temp é criada tendo como parâmetro o _ysize que é o tamanho da coluna. 
- o valor passado na assitaura da funcao, index será a posicao da coluna buscada 
- no metodo. A grande lógica dessa parte está em localizar os indíces corretos no 
- vetor que detem as informaçoes do arquivo.*/
-
-/** @biref No funcao é criado um outro indice ik que será igual ao index - 1, ou
-seja passada a coluna 1 na main é referenciada ao indice 0. Note que o indice 
-buscado no vetor _filecont sera modificado de maneira independente do indice do
-vetor temp. 
-
-Os indices buscados no vetor vao sempre ser modificados pelo tamanho da linha, x
-_xsize. Por exemplo se quero buscar a coluna de indice 0 no vetor _filecont, a 
-conta feita para achar os indices corretos é 0 + tamanho da linha. a coluna 0 
-por exemplo terá os indices todos multiplos da linha, ou seja 0, 3, 6, 9...
-
-*/
-
-void Frame::load_coluna(size_t index){
-	
-	this->col_size();
-	this->line_size();
-	std::vector<std::string> temp(_ysize);
-	
-	this->_stream.open(this->_filepath, std::fstream::in);
-	size_t ik = (index-1);
-	for(size_t it = 0; it < _ysize ;it ++){
-		temp[it] = this->_filecont[ik];	
-		std::cout<<temp[it]<<" ";
-		ik = ik + this->_xsize;
-	}
-	std::cout<<'\n';
-	this->_stream.close();
-	temp.clear();
-}
 /** @brief Por agora essa funcao está sendo desenvolvida para ser a leitura inde
 pendente das colunas, sem a necessidade de passar o conteudo do arquivo inteiro
 para um vetor auxiliar */
-void Frame::read_col(size_t index){
+void Frame::read_col(size_t index, char delim){
 	index = index-1;		
 	
 	this->col_size();	
@@ -131,14 +66,14 @@ void Frame::read_col(size_t index){
 	std::string buffer;
 	this->_stream.open(this->_filepath, std::fstream::in);
 		while(std::getline(this->_stream, buffer)){
-			buffer += ";";
+			buffer += delim;
 			std::istringstream ss(buffer);
 			std::string token;
 			
 			size_t offset = this->_xsize + 1;
 			
 			for(size_t it = 0; it < offset; it++){
-				std::getline(ss, token, ';');	
+				std::getline(ss, token, delim);	
 				if(it == index - it / offset){
 					col_temp.push_back(token);
 				}
