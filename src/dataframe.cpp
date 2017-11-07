@@ -1,5 +1,6 @@
 #include "column.h"
 #include "dataframe.h"
+#include "col_allocator.h"
 
 #include <iostream> // for late nitght debugging (please don't judge me)
 
@@ -83,13 +84,9 @@ void Frame::read_col(size_t index, char delim){
 		}
 	this->_stream.close();
 	std::cout<<"col: "<<index<<std::endl;
-	for(size_t it = 0; it < col_temp.size(); it++){
-		std::cout<<col_temp[it];
-		std::cout<<" ";
-	}
-	std::cout<<std::endl;
+	print_vector(col_temp);
 	/** Tentativa de alocação */
-	std::unique_ptr<Coluna> individual = create_coluna(col_temp);
-    this->_frame[index] = *individual;	
+	//std::unique_ptr<Coluna> individual = create_coluna(col_temp);
+    //this->_frame[index] = *individual;	
 }
 
