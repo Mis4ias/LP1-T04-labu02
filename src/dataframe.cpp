@@ -90,6 +90,8 @@ void Frame::read_col(size_t index, char delim){
 	print_vector(col_temp);
 	/** Tentativa de alocação */
 	std::unique_ptr<Coluna> individual = move(create_coluna(col_temp));
-    this->_frame[index] = *individual;	
+    //this->_frame[index] = *individual;	
+	this->_frame.push_back(*individual);
+
 }
 
