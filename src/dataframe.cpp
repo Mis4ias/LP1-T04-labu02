@@ -19,10 +19,13 @@
  o atributo _xsize é referente ao tamanho da linha. 
  e o _ysize refere-se ao tamanho da coluna, ambos começam com 0 */
  
-Frame::Frame(const std::string& file_path){
+Frame::Frame(const std::string& file_path, char delim){
 	this->_filepath = file_path;		
 	this->_xsize = 0; 
 	this->_ysize = 0;
+	this->_delim = delim;
+	this->line_size(this->_delim);
+	this->_frame.reserve(this->_xsize);
 }
 
 
@@ -65,7 +68,7 @@ void Frame::read_col(size_t index, char delim){
 	this->col_size();	
 	this->line_size(delim);
 	
-	std::vector<std::string> col_temp(this->_ysize);
+	std::vector<std::string> col_temp;
 	std::string buffer;
 	this->_stream.open(this->_filepath, std::fstream::in);
 		while(std::getline(this->_stream, buffer)){
@@ -86,7 +89,7 @@ void Frame::read_col(size_t index, char delim){
 	std::cout<<"col: "<<index<<std::endl;
 	print_vector(col_temp);
 	/** Tentativa de alocação */
-	//std::unique_ptr<Coluna> individual = create_coluna(col_temp);
-    //this->_frame[index] = *individual;	
+	std::unique_ptr<Coluna> individual = move(create_coluna(col_temp));
+    this->_frame[index] = *individual;	
 }
 

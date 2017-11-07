@@ -9,17 +9,15 @@
  */
 
 int main(int argc, char **argv){
-	Frame data("../data/data.csv");
+	Frame data("../data/data.csv", ';');
 	data.read_col(1, ';');
 	data.read_col(2, ';');
 	data.read_col(3, ';');
 	data.read_col(4, ';');
 	
 
-	Frame Sacramento("../data/Sacramento.csv");
-	Sacramento.read_col(1, ',');
 	
-	Frame Delta("../data/delta.csv");
+	Frame Delta("../data/delta.csv", ',');
 	Delta.read_col(1, ',');
 	Delta.read_col(2, ',');
 	Delta.read_col(3, ',');
