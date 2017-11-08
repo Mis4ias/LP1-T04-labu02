@@ -10,18 +10,18 @@
 
 int main(int argc, char **argv){
 	Frame data("../data/data.csv", ';');
-	data.read_col(1, ';');
-	data.read_col(2, ';');
-	data.read_col(3, ';');
-	data.read_col(4, ';');
+	data.read_col(1);
+	data.read_col(2);
+	data.read_col(3);
+	data.read_col(4);
 	
 
 	
 	Frame Delta("../data/delta.csv", ',');
-	Delta.read_col(1, ',');
-	Delta.read_col(2, ',');
-	Delta.read_col(3, ',');
-	Delta.read_col(4, ',');
+	Delta.read_col(1);
+	Delta.read_col(2);
+	Delta.read_col(3);
+	Delta.read_col(4);
 
 	
 	

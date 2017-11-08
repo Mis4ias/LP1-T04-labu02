@@ -24,7 +24,7 @@ Frame::Frame(const std::string& file_path, char delim){
 	this->_xsize = 0; 
 	this->_ysize = 0;
 	this->_delim = delim;
-	this->line_size(this->_delim);
+	this->line_size();
 	this->_frame.reserve(this->_xsize);
 }
 
@@ -33,13 +33,13 @@ Frame::Frame(const std::string& file_path, char delim){
  * ao tamanho da linha e tamanho da coluna, os valores achados são guardados nos
  * atributos _xsize e _ysize , respectivamentes.
 */
-void Frame::line_size(char delim){
+void Frame::line_size(){
 	if(this->_xsize == 0){
 		this->_stream.open(this->_filepath, std::fstream::in);
 		std::string dummy;
 		std::getline(this->_stream, dummy, '\n');
 		for(std::string::iterator it = dummy.begin(); it != dummy.end(); it++)
-			if((*it) == delim) this->_xsize++;
+			if((*it) == this->_delim) this->_xsize++;
 		this->_stream.close();
 	}
 }
@@ -61,25 +61,25 @@ void Frame::col_size(){
 /** @brief Por agora essa funcao está sendo desenvolvida para ser a leitura inde
 pendente das colunas, sem a necessidade de passar o conteudo do arquivo inteiro
 para um vetor auxiliar */
-void Frame::read_col(size_t index, char delim){
+void Frame::read_col(size_t index){
 	index = index-1;		
 	this->_xsize = 0;
 	this->_ysize = 0;		
 	this->col_size();	
-	this->line_size(delim);
+	this->line_size();
 	
 	std::vector<std::string> col_temp;
 	std::string buffer;
 	this->_stream.open(this->_filepath, std::fstream::in);
 		while(std::getline(this->_stream, buffer)){
-			buffer += delim;
+			buffer += this->_delim;
 			std::istringstream ss(buffer);
 			std::string token;
 			
 			size_t offset = this->_xsize + 1;
 			
 			for(size_t it = 0; it < offset; it++){
-				std::getline(ss, token, delim);	
+				std::getline(ss, token, this->_delim);	
 				if(it == index - it / offset){
 					col_temp.push_back(token);
 				}

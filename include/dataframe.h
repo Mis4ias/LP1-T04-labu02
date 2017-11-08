@@ -12,9 +12,9 @@
 class Frame {
 	public:
 	Frame(const std::string&, char);
-	void line_size(char);
+	void line_size();
 	void col_size();
-	void read_col(size_t, char);	
+	void read_col(size_t);	
 
 	private:
 		std::vector<std::string> _filecont;
