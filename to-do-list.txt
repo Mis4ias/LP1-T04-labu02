@@ -9,3 +9,16 @@ Lista a fazer das coisas necessarias ao Dataframe
 >> Fazer um metodo que leia o numero de linhas do arquivo. DONE !! 
 >> Automatizar a leitura do modo que capte ; || \n. DONE !! 
 >>REMOVER BUG DE PRECISAR DO : NA ultima col !!		 
+
+
+_______________________________________________________________________
+
+Tasks :
+
+> Entrada e saida formatada, istream e ostream overload.
+> Acesso por nome das cols ou indices das linhas (find nome) e linha: percorrer todo o frame
+	na aultura da linha desejada. 
+> Agregação: Não tenho ideia do que se trate ! hehehe (perguntar na quinta).
+
+
+	
