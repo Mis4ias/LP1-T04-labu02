@@ -15,7 +15,8 @@ class Frame {
 	void line_size();
 	void col_size();
 	void read_col(size_t);	
-
+	friend std::ostream& operator <<(std::ostream& out, const Frame& rig);
+	
 	private:
 		std::vector<std::string> _filecont;
 		std::vector<Coluna> _frame;	

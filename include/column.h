@@ -7,17 +7,22 @@
 #include <iostream>
 
 class Coluna {
-	protected:
-		std::vector<std::string> _col;
+	private:
+		size_t _sizeof;
 	public:
+		std::vector<std::string> _col;
 		Coluna(const std::vector<std::string>& temp){
-		//	this->_col.resize(temp.size());
 			for(size_t it = 0;it < temp.size(); it++){
 				_col.push_back(temp[it]);
 			}	
-			
+			_sizeof = temp.size();
 		}  
-			
+		std::vector<std::string>* get_col(){
+			return &_col;
+		}
+		size_t get_size(){
+			return this->_sizeof;
+		}		
 };
 
 #endif //__COLUMN_H__

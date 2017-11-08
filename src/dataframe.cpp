@@ -86,12 +86,17 @@ void Frame::read_col(size_t index){
 			}	
 		}
 	this->_stream.close();
-	std::cout<<"col: "<<index<<std::endl;
-	print_vector(col_temp);
-	/** Tentativa de alocação */
 	std::unique_ptr<Coluna> individual = move(create_coluna(col_temp));
-    //this->_frame[index] = *individual;	
 	this->_frame.push_back(*individual);
 
 }
 
+std::ostream& operator <<(std::ostream& out, const Frame& rig){
+	for(size_t it = 0; it < rig._frame.size(); it ++){
+		for(size_t ik = 0; ik < rig._frame[it]._col.size(); ik++){
+			out<<rig._frame[it]._col[ik];
+		}
+	std::cout<<std::endl;
+	}
+	return out;
+}

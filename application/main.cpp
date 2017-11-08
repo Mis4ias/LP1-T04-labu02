@@ -15,7 +15,7 @@ int main(int argc, char **argv){
 	data.read_col(3);
 	data.read_col(4);
 	
-
+	std::cout<<data;
 	
 	Frame Delta("../data/delta.csv", ',');
 	Delta.read_col(1);
@@ -23,7 +23,7 @@ int main(int argc, char **argv){
 	Delta.read_col(3);
 	Delta.read_col(4);
 
-	
+	std::cout<<Delta;	
 	
 	return EXIT_SUCCESS;
 }
