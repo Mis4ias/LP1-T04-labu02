@@ -11,10 +11,10 @@
 
 /** @brief Por agora a classe não está tendo grandes propósitos a não ser os 
  * métodos no public */
+template <class T>
 class Frame {
 	private:
-		std::vector<std::string> _filecont;
-		typename std::vector<Coluna<T>> _frame;	
+		std::vector<Coluna<T>> _frame;	
 		std::string _filepath;
 		std::fstream _stream;
 		size_t _xsize, _ysize;
