@@ -12,9 +12,9 @@ void print_vector(const std::vector<std::string>& temp){
 		std::cout<<temp[it]<<" ";	
 	std::cout<<std::endl;
 }
-
-std::unique_ptr<Coluna> create_coluna(const std::vector<std::string>& temp){
-		std::unique_ptr<Coluna> new_coluna(new Coluna(temp));
+template <typename T>
+std::unique_ptr<Coluna<T>> create_coluna(const std::vector<T>& temp){
+		std::unique_ptr<Coluna<T>> new_coluna(new Coluna(temp));
 		return new_coluna;
 }
 

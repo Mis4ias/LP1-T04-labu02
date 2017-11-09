@@ -1,6 +1,6 @@
+/*
 #include "column.h"
 #include "dataframe.h"
-#include "col_allocator.h"
 
 #include <iostream> // for late nitght debugging (please don't judge me)
 
@@ -10,7 +10,7 @@
 #include <string>
 #include <sstream>
 #include <memory>
-
+*/
 /** @brief Construtor Paramétrizado, recebe uma string que é tratada como 
  caminho do arquivo 
  Toda vez que é chamado this-> é o mesmo que chamar o atributo privado da classe
@@ -18,7 +18,7 @@
  _filepath recebe a string file_path 
  o atributo _xsize é referente ao tamanho da linha. 
  e o _ysize refere-se ao tamanho da coluna, ambos começam com 0 */
- 
+ /*
 Frame::Frame(const std::string& file_path, char delim){
 	this->_filepath = file_path;		
 	this->_xsize = 0; 
@@ -27,12 +27,13 @@ Frame::Frame(const std::string& file_path, char delim){
 	this->line_size();
 	this->_frame.reserve(this->_xsize);
 }
-
+*/
 
 /** @brief Os dois metodos a baixo só servem para calcular os valores referentes
  * ao tamanho da linha e tamanho da coluna, os valores achados são guardados nos
  * atributos _xsize e _ysize , respectivamentes.
 */
+/*
 void Frame::line_size(){
 	if(this->_xsize == 0){
 		this->_stream.open(this->_filepath, std::fstream::in);
@@ -43,11 +44,12 @@ void Frame::line_size(){
 		this->_stream.close();
 	}
 }
+*/
 /** @brief no futuro essa funcão de tamanho da coluna deverá ser adptada para
 calcular o tamanho da coluna a ser alocada, para que não tenham bugs referentes
 a colunas com tamanhos diferentes. Talvez em vez de ter essa funcao o processo
 de calculo da coluna seja passada para o proprio metodo de alocar. */
-
+/*
 void Frame::col_size(){
 	if(this->_ysize == 0){
 		this->_stream.open(this->_filepath, std::fstream::in);
@@ -57,10 +59,11 @@ void Frame::col_size(){
 		this->_stream.close();
 	}
 }
-
+*/
 /** @brief Por agora essa funcao está sendo desenvolvida para ser a leitura inde
 pendente das colunas, sem a necessidade de passar o conteudo do arquivo inteiro
 para um vetor auxiliar */
+/*
 void Frame::read_col(size_t index){
 	index = index-1;		
 	this->_xsize = 0;
@@ -99,4 +102,4 @@ std::ostream& operator <<(std::ostream& out, const Frame& rig){
 	std::cout<<std::endl;
 	}
 	return out;
-}
+}*/
