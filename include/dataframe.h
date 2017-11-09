@@ -3,6 +3,7 @@
 #include "col_allocator.h"
 #include "column.h"
 
+#include <sstream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -11,8 +12,16 @@
 /** @brief Por agora a classe não está tendo grandes propósitos a não ser os 
  * métodos no public */
 class Frame {
+	private:
+		std::vector<std::string> _filecont;
+		typename std::vector<Coluna<T>> _frame;	
+		std::string _filepath;
+		std::fstream _stream;
+		size_t _xsize, _ysize;
+		char _delim;
+		
 	public:
-	Frame(const std::string&, char);
+	Frame(const std::string& file_path, char delim){
 		this->_filepath = file_path;		
 		this->_xsize = 0; 
 		this->_ysize = 0;
@@ -42,7 +51,7 @@ class Frame {
 		}
 	}
 
-	void read_col(size_t){
+	void read_col(size_t index){
 		index = index-1;		
 		this->_xsize = 0;
 		this->_ysize = 0;		
@@ -66,8 +75,8 @@ class Frame {
 				}
 			}	
 		}
-		this->_stream.close(){
-		std::unique_ptr<Coluna> individual = move(create_coluna(col_temp));
+		this->_stream.close();
+		std::unique_ptr<Coluna<std::string>> individual = move(create_coluna(col_temp));
 		this->_frame.push_back(*individual);
 
 	}
@@ -81,13 +90,6 @@ class Frame {
 		}
 		return out;
 	}	
-	private:
-		std::vector<std::string> _filecont;
-		typename std::vector<Coluna<T>> _frame;	
-		std::string _filepath;
-		std::fstream _stream;
-		size_t _xsize, _ysize;
-		char _delim;
 };
 
 #endif // __DATAFRAME_H__
