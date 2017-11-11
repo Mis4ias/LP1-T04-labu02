@@ -6,13 +6,14 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>
-#include "agregator.h"
 
 using namespace std;
 
 template <class T>
-class Coluna {
+class Agregator {
 	public:
+		Agregator(vector<T>& main_vector): _colun(main_vector) { };
+		
 		int min_value(vector<T>& colun){
 			vector<int> aux;
 			int value;
@@ -82,6 +83,18 @@ class Coluna {
 			}
 			return aux[offset];
 		}
+		
+		friend std::ostream& operator <<(std::ostream& out, const  Agregator<T>& obj){
+			for(size_t it = 0; it < obj._colun.size(); it++){
+				out<<obj._colun[it]<<" ";
+			}
+			out<<std::endl;
+		return out;
+		}
+	
+	private:
+		vector<T> _colun;
+	
 };
 
 #endif //__AGREGATOR_H__

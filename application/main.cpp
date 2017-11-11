@@ -2,19 +2,22 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 int main(int argc, char **argv){
 	Dataframe<std::string> data(0);
+	std::vector<std::string> col(0);
 	
 	std::cin >> data;
-	//data.break_col(2);
-	//data.break_col(3);
 	
-	std::cout << data; 
+	//std::cout << data; 
 	std::cout<<std::endl;
-	data.find_col("1996");	
+	//data.find_col("1996");	
+	data.break_col(col, 1);
+	Agregator<std::string> coluna(col);
+	std::cout<<coluna;
 	std::cout<<std::endl;
-	data.find_col("Municipio");	
+	//data.find_col("Municipio");	
 	
 	return EXIT_SUCCESS;
 }

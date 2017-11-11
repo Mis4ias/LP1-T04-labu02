@@ -26,8 +26,14 @@ class Dataframe {
 				}
 			}
 		}	
+		void break_col(std::vector<T>& maincol, size_t ncol){
+			for(size_t it = 0; it < this->_data.size(); it++){
+				if(it % this->_nline == ncol)
+					maincol.push_back(this->_data[it]);	
+			}
 		
-		void break_col(size_t ncol){
+		}	
+		/*void break_col(size_t ncol){
 			if(this->_col_temp.size() != 0)
 					this->_col_temp.resize(0);
 			
@@ -36,13 +42,13 @@ class Dataframe {
 					this->_col_temp.push_back(this->_data[it]);	
 			}		
 			print_col(ncol);
-		}
+		}*/
 		
-		void find_col(std::string name) {
+		void find_col(std::vector<T>& maincol, std::string name) {
 			for(size_t it = 0; it < this->_header.size(); it++){
 				std::string buffer = this->_header[it];
 				if(name.compare(buffer) == 0)
-					break_col(it);	
+					break_col(maincol, it);	
 			}
 		}	
 	
@@ -119,7 +125,7 @@ class Dataframe {
 	
 	
 	private:
-		Coluna<T> colop;
+		
 		std::vector<T> _data, _header, _col_temp;	
 		size_t _nline;
 };
