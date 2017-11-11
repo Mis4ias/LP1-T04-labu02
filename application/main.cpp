@@ -1,29 +1,19 @@
 #include "dataframe.h"
+
 #include <string>
-#include <fstream>
 #include <iostream>
 
-/* Comente as funcoes que não quer usar.
- Ou usa-se as funcoes read_file em conjunto com load_coluna(size_t)
- ou  Apenas read_col(size_t)
- */
-
 int main(int argc, char **argv){
-	Frame<std::string> data("../data/data.csv", ';');
-	data.read_col(1);
-	data.read_col(2);
-	data.read_col(3);
-	data.read_col(4);
+	Dataframe<std::string> data(0);
 	
-	std::cout<<data;
+	std::cin >> data;
+	//data.break_col(2);
+	//data.break_col(3);
 	
-	Frame<std::string> Delta("../data/delta.csv", ',');
-	Delta.read_col(1);
-	Delta.read_col(2);
-	Delta.read_col(3);
-	Delta.read_col(4);
-
-	std::cout<<Delta;	
+	std::cout << data; 
+	std::cout<<std::endl;
+	data.find_col("1996");	
+	data.find_col("Municipio");	
 	
 	return EXIT_SUCCESS;
 }

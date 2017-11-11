@@ -1,95 +1,91 @@
 #ifndef __DATAFRAME_H__
 #define __DATAFRAME_H__
-#include "col_allocator.h"
-#include "column.h"
 
 #include <sstream>
-#include <fstream>
-#include <string>
 #include <vector>
-#include <memory>
+#include <iostream>
+#include <string>
 
-/** @brief Por agora a classe não está tendo grandes propósitos a não ser os 
- * métodos no public */
-template <class T>
-class Frame {
-	private:
-		std::vector<Coluna<T>> _frame;	
-		std::string _filepath;
-		std::fstream _stream;
-		size_t _xsize, _ysize;
-		char _delim;
-		
+template <typename T>
+class Dataframe {
 	public:
-	Frame(const std::string& file_path, char delim){
-		this->_filepath = file_path;		
-		this->_xsize = 0; 
-		this->_ysize = 0;
-		this->_delim = delim;
-		this->line_size();
-		this->_frame.reserve(this->_xsize);
-	}
-
-	void line_size(){
-		if(this->_xsize == 0){
-			this->_stream.open(this->_filepath, std::fstream::in);
-			std::string dummy;
-			std::getline(this->_stream, dummy, '\n');
-			for(std::string::iterator it = dummy.begin(); it != dummy.end(); it++)
-				if((*it) == this->_delim) this->_xsize++;
-			this->_stream.close();
-		}
-	}
-
-	void col_size(){
-		if(this->_ysize == 0){
-			this->_stream.open(this->_filepath, std::fstream::in);
-			std::string dummy;
-			while(std::getline(this->_stream, dummy, '\n'))
-				this->_ysize++;	
-			this->_stream.close();
-		}
-	}
-
-	void read_col(size_t index){
-		index = index-1;		
-		this->_xsize = 0;
-		this->_ysize = 0;		
-		this->col_size();	
-		this->line_size();
-	
-		std::vector<std::string> col_temp;
-		std::string buffer;
-		this->_stream.open(this->_filepath, std::fstream::in);
-			while(std::getline(this->_stream, buffer)){
-				buffer += this->_delim;
-				std::istringstream ss(buffer);
-				std::string token;
-			
-				size_t offset = this->_xsize + 1;
-			
-				for(size_t it = 0; it < offset; it++){
-					std::getline(ss, token, this->_delim);	
-					if(it == index - it / offset){
-					col_temp.push_back(token);
+		Dataframe(unsigned tam): _data(tam), _header(tam), _nline(1) { }
+		
+		
+		void size_line(std::string line){
+			if(this->_nline == 1){
+				for(std::string::iterator it = line.begin(); it != line.end(); it++){
+					if((*it) == ';')
+							this->_nline++;
 				}
-			}	
-		}
-		this->_stream.close();
-		std::unique_ptr<Coluna<std::string>> individual = move(create_coluna(col_temp));
-		this->_frame.push_back(*individual);
-
-	}
-	
-	friend std::ostream& operator <<(std::ostream& out, const Frame& rig){
-		for(size_t it = 0; it < rig._frame.size(); it ++){
-			for(size_t ik = 0; ik < rig._frame[it]._col.size(); ik++){
-				out<<rig._frame[it]._col[ik];
 			}
-		std::cout<<std::endl;
+		}	
+		
+	
+		void print_header() const {
+			for(size_t it = 0; it < this->_header.size(); it++){
+				std::cout<<this->_header[it]<<" ";
+			}
+		}	
+		
+		void get_line(size_t line) const {
+			size_t offset = line * this->_nline;
+			for(size_t it = offset; it < offset + this->_nline; it++){
+				std::cout<<this->_data[it]<<" ";
+			}
+			std::cout<<std::endl;
 		}
+		
+		void break_col(size_t ncol) const {
+			for(size_t it = 0; it < this->_data.size(); it++){
+				if(it % this->_nline == ncol)
+					std::cout<<this->_data[it]<<" ";	
+			}		
+			std::cout<<std::endl;
+		}
+		void find_col(std::string name) const {
+			for(size_t it = 0; it < this->_header.size(); it++){
+				std::string buffer = this->_header[it];
+				if(name.compare(buffer) == 0)
+					break_col(it);	
+			}
+		}	
+	/******************************************************************************/	
+		friend std::istream& operator >>(std::istream& in, Dataframe<T>& obj){
+			bool first_line = true;
+			while(in){
+				std::string buffer;
+				std::getline(in, buffer, '\n');
+				obj.size_line(buffer);
+				buffer+=";";
+				
+				std::string token;
+				std::istringstream iss(buffer);
+				while(std::getline(iss, token, ';')){
+					if(first_line)
+						obj._header.push_back(token);	
+					if(!first_line)
+						obj._data.push_back(token);	
+				}
+			first_line = false;
+			}
+			return in;
+		}
+		
+		friend std::ostream& operator <<(std::ostream& out, const Dataframe<T>& obj){
+			obj.print_header();
+			for(size_t it = 0; it < obj._data.size(); it++){
+				if(it % obj._nline == 0)
+					out<<std::endl;	
+				out<<obj._data[it]<<" ";
+			}
 		return out;
-	}	
+		}
+	
+	
+	private:
+		std::vector<T> _data, _header;	
+		size_t _nline;
 };
 
 #endif // __DATAFRAME_H__
