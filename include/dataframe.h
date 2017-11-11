@@ -1,6 +1,8 @@
 #ifndef __DATAFRAME_H__
 #define __DATAFRAME_H__
 
+#include "agregator.h"
+
 #include <sstream>
 #include <vector>
 #include <iostream>
@@ -9,8 +11,12 @@
 template <typename T>
 class Dataframe {
 	public:
-		Dataframe(unsigned tam): _data(tam), _header(tam), _nline(1) { }
-		
+	
+		Dataframe(unsigned tam): _data(tam), _header(tam), _col_temp(tam), _nline(1) { }
+	
+	/******************************************************************************/	
+	/******************************************************************************/	
+	/** Non-constant Members **/
 		
 		void size_line(std::string line){
 			if(this->_nline == 1){
@@ -21,14 +27,43 @@ class Dataframe {
 			}
 		}	
 		
+		void break_col(size_t ncol){
+			if(this->_col_temp.size() != 0)
+					this->_col_temp.resize(0);
+			
+			for(size_t it = 0; it < this->_data.size(); it++){
+				if(it % this->_nline == ncol)
+					this->_col_temp.push_back(this->_data[it]);	
+			}		
+			print_col(ncol);
+		}
+		
+		void find_col(std::string name) {
+			for(size_t it = 0; it < this->_header.size(); it++){
+				std::string buffer = this->_header[it];
+				if(name.compare(buffer) == 0)
+					break_col(it);	
+			}
+		}	
 	
+	/******************************************************************************/	
+	/******************************************************************************/	
+	/** Constant Members **/
+		
 		void print_header() const {
 			for(size_t it = 0; it < this->_header.size(); it++){
 				std::cout<<this->_header[it]<<" ";
 			}
 		}	
 		
-		void get_line(size_t line) const {
+		void print_col(size_t ncol) const {
+			for(size_t it = 0; it < this->_col_temp.size(); it++){
+					std::cout<<this->_col_temp[it]<<" ";	
+			}		
+			std::cout<<std::endl;
+		}
+		
+		void const_get_line(size_t line) const {
 			size_t offset = line * this->_nline;
 			for(size_t it = offset; it < offset + this->_nline; it++){
 				std::cout<<this->_data[it]<<" ";
@@ -36,21 +71,18 @@ class Dataframe {
 			std::cout<<std::endl;
 		}
 		
-		void break_col(size_t ncol) const {
-			for(size_t it = 0; it < this->_data.size(); it++){
-				if(it % this->_nline == ncol)
-					std::cout<<this->_data[it]<<" ";	
-			}		
-			std::cout<<std::endl;
-		}
-		void find_col(std::string name) const {
+		void const_find_col(std::string name) const {
 			for(size_t it = 0; it < this->_header.size(); it++){
 				std::string buffer = this->_header[it];
 				if(name.compare(buffer) == 0)
-					break_col(it);	
+					print_col(it);	
 			}
 		}	
+	
 	/******************************************************************************/	
+	/******************************************************************************/	
+	/** Friends Members **/
+		
 		friend std::istream& operator >>(std::istream& in, Dataframe<T>& obj){
 			bool first_line = true;
 			while(in){
@@ -82,9 +114,13 @@ class Dataframe {
 		return out;
 		}
 	
+	/******************************************************************************/	
+	/******************************************************************************/	
+	
 	
 	private:
-		std::vector<T> _data, _header;	
+		Coluna<T> colop;
+		std::vector<T> _data, _header, _col_temp;	
 		size_t _nline;
 };
 

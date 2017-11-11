@@ -13,6 +13,7 @@ int main(int argc, char **argv){
 	std::cout << data; 
 	std::cout<<std::endl;
 	data.find_col("1996");	
+	std::cout<<std::endl;
 	data.find_col("Municipio");	
 	
 	return EXIT_SUCCESS;
