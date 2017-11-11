@@ -4,16 +4,32 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <cctype>
+//#include <cctype>
 #include <cstdlib>
+#include <locale>
 
 using namespace std;
 
 template <class T>
 class Agregator {
 	public:
-		Agregator(vector<T>& main_vector): _colun(main_vector) { };
+		Agregator(vector<T>& main_vector): _colun(main_vector), _min(0) { };
 		
+		void min_value(){
+			vector<int> aux;
+			int value;
+			std::string token;
+			std::locale loc;
+			for(size_t it = 0; it < this->_colun.size(); it++){
+				token = this->_colun[it];
+				char *p;
+				value = strtol(token.c_str(),&p,10);
+				aux.push_back(value);
+			}
+			this->_min = *min_element(aux.begin(), aux.end());
+			std::cout<<"Menor elemento da coluna: "<<this->_min<<std::endl;
+		}
+		/*
 		int min_value(vector<T>& colun){
 			vector<int> aux;
 			int value;
@@ -82,7 +98,7 @@ class Agregator {
 				}
 			}
 			return aux[offset];
-		}
+		}*/
 		
 		friend std::ostream& operator <<(std::ostream& out, const  Agregator<T>& obj){
 			for(size_t it = 0; it < obj._colun.size(); it++){
@@ -94,6 +110,7 @@ class Agregator {
 	
 	private:
 		vector<T> _colun;
+		int _min;
 	
 };
 

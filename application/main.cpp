@@ -1,4 +1,5 @@
 #include "dataframe.h"
+#include "agregator.h"
 
 #include <string>
 #include <iostream>
@@ -15,6 +16,7 @@ int main(int argc, char **argv){
 	//data.find_col("1996");	
 	data.break_col(col, 1);
 	Agregator<std::string> coluna(col);
+	coluna.min_value();
 	std::cout<<coluna;
 	std::cout<<std::endl;
 	//data.find_col("Municipio");	

@@ -1,7 +1,6 @@
 #ifndef __DATAFRAME_H__
 #define __DATAFRAME_H__
 
-#include "agregator.h"
 
 #include <sstream>
 #include <vector>
