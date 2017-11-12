@@ -14,8 +14,9 @@ template <class T>
 class Agregator {
 	public:
 		/**Constructor ***/
-		Agregator(vector<T>& main_vector): _colun(main_vector), _aux(main_vector.size()), 
-		_min(0), _max(0), _med(0), _total(0) { };
+		Agregator(vector<T>& main_vector, std::string name, size_t i): _colun(main_vector), 
+		_aux(main_vector.size()), _min(0), _max(0), _med(0), _total(0), 
+		_name(name), _index(i) { };
 		
 		/** Non Constant Members ***/
 		void load_aux(){
@@ -32,23 +33,35 @@ class Agregator {
 			}
 		}	
 		void min_value(){
-			this->_min = *min_element(this->_aux.begin(), this->_aux.end());
-			std::cout<<"Menor elemento da coluna: "<<this->_min<<std::endl;
+				if(this->_min == 0){
+				this->_min = *min_element(this->_aux.begin(), this->_aux.end());
+				std::cout<<"Menor elemento da coluna: "<<this->_min<<std::endl;
+			}
 		}
 		void max_value(){
-			this->_max = *max_element(this->_aux.begin(), this->_aux.end());
-			std::cout<<"Maior elemento da coluna: "<<this->_max<<std::endl;
+			if(this->_max == 0){
+				this->_max = *max_element(this->_aux.begin(), this->_aux.end());
+				std::cout<<"Maior elemento da coluna: "<<this->_max<<std::endl;
+			}
 		}
 		void med_value(){
-			this->_med = this->_total/this->_aux.size();
-			std::cout<<"Valor médio da coluna: "<<this->_med<<std::endl;
+			if(this->_med == 0){
+				this->_med = this->_total/this->_aux.size();
+				std::cout<<"Valor médio da coluna: "<<this->_med<<std::endl;
+			}
+		}
+		void values(){
+			if(this->_med == 0 and this->_min == 0 and this->_max == 0){
+				this->_min = *min_element(this->_aux.begin(), this->_aux.end());
+				this->_max = *max_element(this->_aux.begin(), this->_aux.end());
+				this->_med = this->_total/this->_aux.size();
+			}
 		}	
-		
 		/** Constant Members ***/
 		void export_to_file(std::string name)const {
 
 			std::fstream stream;
-			stream.open("../data/"+name, std::fstream::out | std::fstream::app);
+			stream.open("../data/"+name, std::fstream::out);
 			stream<<"Valores, mínimo("<<this->_min<<"), máximo("<<this->_max<<") e médio(";
 			stream<<this->_med<<")"<<std::endl;
 			stream<<"Coluna: ";
@@ -73,7 +86,9 @@ class Agregator {
 		std::vector<T> _colun;
 		std::vector<int> _aux;
 		int _min, _max, _med, _total;
-	
+		std::string _name;
+		size_t _index;
+		
 };
 
 #endif //__AGREGATOR_H__

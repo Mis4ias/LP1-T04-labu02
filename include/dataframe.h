@@ -13,6 +13,8 @@ class Dataframe {
 	/** Constructor **/	
 		Dataframe(unsigned tam): _data(tam), _header(tam), _col_temp(tam), _nline(1) { }
 	
+	
+		
 	/** Non-constant Members **/
 		void size_line(std::string line){
 			if(this->_nline == 1){
@@ -39,6 +41,17 @@ class Dataframe {
 		}	
 	
 	/** Constant Members **/
+		std::string get_name(size_t index)const {
+			return this->_header[index];
+		}
+		size_t get_index(std::string name)const {
+			for(size_t it = 0; it < this->_header.size(); it++){
+				if(this->_header[it].compare(name) == 0)
+					return it;	
+			}
+			return -1;
+		}
+		
 		void print_header() const {
 			for(size_t it = 0; it < this->_header.size(); it++){
 				std::cout<<this->_header[it]<<" ";
