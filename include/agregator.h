@@ -13,14 +13,14 @@ using namespace std;
 template <class T>
 class Agregator {
 	public:
+		/**Constructor ***/
 		Agregator(vector<T>& main_vector): _colun(main_vector), _aux(main_vector.size()), 
 		_min(0), _max(0), _med(0), _total(0) { };
 		
-		
+		/** Non Constant Members ***/
 		void load_aux(){
 			std::string token;
 			int value;
-			/**This garantie that aux vector is always a clean vector */
 			this->_aux.resize(this->_colun.size());
 			this->_total = 0;
 			for(size_t it = 0; it < this->_colun.size(); it++){
@@ -43,7 +43,9 @@ class Agregator {
 			this->_med = this->_total/this->_aux.size();
 			std::cout<<"Valor médio da coluna: "<<this->_med<<std::endl;
 		}	
-		void export_to_file(std::string name) {
+		
+		/** Constant Members ***/
+		void export_to_file(std::string name)const {
 
 			std::fstream stream;
 			stream.open("../data/"+name, std::fstream::out | std::fstream::app);
@@ -55,18 +57,10 @@ class Agregator {
 			}
 			stream<<std::endl;
 			stream.close();
+			std::cout<<"Arquivo salvo em: ../data"<<name<<std::endl;
 		}	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
+		/** Friend Members ***/
 		friend std::ostream& operator <<(std::ostream& out, const  Agregator<T>& obj){
 			for(size_t it = 0; it < obj._colun.size(); it++){
 				out<<obj._colun[it]<<" ";

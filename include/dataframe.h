@@ -10,13 +10,10 @@
 template <typename T>
 class Dataframe {
 	public:
-	
+	/** Constructor **/	
 		Dataframe(unsigned tam): _data(tam), _header(tam), _col_temp(tam), _nline(1) { }
 	
-	/******************************************************************************/	
-	/******************************************************************************/	
 	/** Non-constant Members **/
-		
 		void size_line(std::string line){
 			if(this->_nline == 1){
 				for(std::string::iterator it = line.begin(); it != line.end(); it++){
@@ -32,16 +29,6 @@ class Dataframe {
 			}
 		
 		}	
-		/*void break_col(size_t ncol){
-			if(this->_col_temp.size() != 0)
-					this->_col_temp.resize(0);
-			
-			for(size_t it = 0; it < this->_data.size(); it++){
-				if(it % this->_nline == ncol)
-					this->_col_temp.push_back(this->_data[it]);	
-			}		
-			print_col(ncol);
-		}*/
 		
 		void find_col(std::vector<T>& maincol, std::string name) {
 			for(size_t it = 0; it < this->_header.size(); it++){
@@ -51,10 +38,7 @@ class Dataframe {
 			}
 		}	
 	
-	/******************************************************************************/	
-	/******************************************************************************/	
 	/** Constant Members **/
-		
 		void print_header() const {
 			for(size_t it = 0; it < this->_header.size(); it++){
 				std::cout<<this->_header[it]<<" ";
@@ -84,10 +68,7 @@ class Dataframe {
 			}
 		}	
 	
-	/******************************************************************************/	
-	/******************************************************************************/	
 	/** Friends Members **/
-		
 		friend std::istream& operator >>(std::istream& in, Dataframe<T>& obj){
 			bool first_line = true;
 			while(in){
@@ -116,13 +97,12 @@ class Dataframe {
 					out<<std::endl;	
 				out<<obj._data[it]<<" ";
 			}
+			out<<std::endl;
 		return out;
 		}
 	
 	/******************************************************************************/	
 	/******************************************************************************/	
-	
-	
 	private:
 		
 		std::vector<T> _data, _header, _col_temp;	
