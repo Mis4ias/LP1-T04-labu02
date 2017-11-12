@@ -4,102 +4,69 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-//#include <cctype>
 #include <cstdlib>
-#include <locale>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
 template <class T>
 class Agregator {
 	public:
-		Agregator(vector<T>& main_vector): _colun(main_vector), _min(0) { };
+		Agregator(vector<T>& main_vector): _colun(main_vector), _aux(main_vector.size()), 
+		_min(0), _max(0), _med(0), _total(0) { };
 		
-		void min_value(){
-			vector<int> aux;
-			int value;
+		
+		void load_aux(){
 			std::string token;
-			std::locale loc;
+			int value;
+			/**This garantie that aux vector is always a clean vector */
+			this->_aux.resize(this->_colun.size());
+			this->_total = 0;
 			for(size_t it = 0; it < this->_colun.size(); it++){
 				token = this->_colun[it];
 				char *p;
 				value = strtol(token.c_str(),&p,10);
-				aux.push_back(value);
+				this->_aux[it] = value;
+				this->_total += value;
 			}
-			this->_min = *min_element(aux.begin(), aux.end());
+		}	
+		void min_value(){
+			this->_min = *min_element(this->_aux.begin(), this->_aux.end());
 			std::cout<<"Menor elemento da coluna: "<<this->_min<<std::endl;
 		}
-		/*
-		int min_value(vector<T>& colun){
-			vector<int> aux;
-			int value;
-
-			for(typename vector<T>::iterator i = colun.begin();i!=colun.end();i++){
-				if(isdigit(*i)){
-					value=atoi(*i);
-					aux.push_back(value);
-				}
-			}
-
-			return min_element(aux.begin(),aux.end());
-
+		void max_value(){
+			this->_max = *max_element(this->_aux.begin(), this->_aux.end());
+			std::cout<<"Maior elemento da coluna: "<<this->_max<<std::endl;
 		}
+		void med_value(){
+			this->_med = this->_total/this->_aux.size();
+			std::cout<<"Valor médio da coluna: "<<this->_med<<std::endl;
+		}	
+		void export_to_file(std::string name) {
 
-		//template <typename T>
-		int max_value(vector<T>& colun){	
-			vector<int> aux;
-			int value;
-
-			for(typename vector<T>::iterator i = colun.begin();i!=colun.end();i++){
-				if(isdigit(*i)){
-					value=atoi(*i);
-					aux.push_back(value);
-				}
+			std::fstream stream;
+			stream.open("../data/"+name, std::fstream::out | std::fstream::app);
+			stream<<"Valores, mínimo("<<this->_min<<"), máximo("<<this->_max<<") e médio(";
+			stream<<this->_med<<")"<<std::endl;
+			stream<<"Coluna: ";
+			for(size_t it = 0; it< this->_colun.size(); it++){
+				stream<<this->_colun[it]<<" ";
 			}
-
-			return max_element(aux.begin(),aux.end());
-
-		}
-
-		//template <typename T>
-		int med_value(vector<T>& colun){
-			int value=0;
-
-			for(typename vector<T>::iterator i = colun.begin();i!=colun.end();i++){
-				if(isdigit(*i)){
-					value+=atoi(*i);
-
-				}
-			}
-			return value/colun.size();
-		}
-
-		//template <typename T>
-		int moda(vector <T>& colun){
-			vector<int> aux;
-			int value,cont1=0,cont2=0,offset=0;
-
-			for(typename vector<T>::iterator i = colun.begin();i!=colun.end();i++){
-				if(isdigit(*i)){
-					value=atoi(*i);
-					aux.push_back(value);
-				}
-			}
-			for (int j = 0; j < aux.size(); ++j){
-				for(int k=j+1;k<aux.size();k++){
-					if(aux[j]==aux[k]){
-						cont1++;
-					}		
-				}
-				if(cont1>cont2){
-					cont2=cont1;
-					cont1=0;
-					offset=j;
-				}
-			}
-			return aux[offset];
-		}*/
+			stream<<std::endl;
+			stream.close();
+		}	
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
 		friend std::ostream& operator <<(std::ostream& out, const  Agregator<T>& obj){
 			for(size_t it = 0; it < obj._colun.size(); it++){
 				out<<obj._colun[it]<<" ";
@@ -109,8 +76,9 @@ class Agregator {
 		}
 	
 	private:
-		vector<T> _colun;
-		int _min;
+		std::vector<T> _colun;
+		std::vector<int> _aux;
+		int _min, _max, _med, _total;
 	
 };
 

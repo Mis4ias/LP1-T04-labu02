@@ -16,8 +16,12 @@ int main(int argc, char **argv){
 	//data.find_col("1996");	
 	data.break_col(col, 1);
 	Agregator<std::string> coluna(col);
+	coluna.load_aux();
 	coluna.min_value();
+	coluna.max_value();
+	coluna.med_value();
 	std::cout<<coluna;
+	coluna.export_to_file("coluna1");
 	std::cout<<std::endl;
 	//data.find_col("Municipio");	
 	
