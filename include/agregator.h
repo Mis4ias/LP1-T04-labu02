@@ -55,6 +55,9 @@ class Agregator {
 				this->_min = *min_element(this->_aux.begin(), this->_aux.end());
 				this->_max = *max_element(this->_aux.begin(), this->_aux.end());
 				this->_med = this->_total/this->_aux.size();
+				std::cout<<"Valores, mínimo("<<this->_min<<"), ";
+				std::cout<<"médio("<<this->_med<<"), ";
+				std::cout<<"máximo("<<this->_max<<")."<<std::endl;
 			}
 		}	
 		/** Constant Members ***/
@@ -64,7 +67,7 @@ class Agregator {
 			stream.open("../data/"+name, std::fstream::out);
 			stream<<"Valores, mínimo("<<this->_min<<"), máximo("<<this->_max<<") e médio(";
 			stream<<this->_med<<")"<<std::endl;
-			stream<<"Coluna: ";
+			stream<<"Coluna("<<this->_name<<", "<<this->_index<<"): ";
 			for(size_t it = 0; it< this->_colun.size(); it++){
 				stream<<this->_colun[it]<<" ";
 			}

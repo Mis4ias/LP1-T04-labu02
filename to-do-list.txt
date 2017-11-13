@@ -15,10 +15,10 @@ _______________________________________________________________________
 
 Tasks :
 
-> Entrada e saida formatada, istream e ostream overload.
-> Acesso por nome das cols ou indices das linhas (find nome) e linha: percorrer todo o frame
+> Entrada e saida formatada, istream e ostream overload. DONE
+> Acesso por nome das cols ou indices das linhas (find nome) e linha: percorrer todo o frame DONE
 	na aultura da linha desejada. 
-> Agregação: Não tenho ideia do que se trate ! hehehe (perguntar na quinta).
+> Agregação: Não tenho ideia do que se trate ! hehehe (perguntar na quinta). DONE 
 
 
 	
