@@ -6,6 +6,6 @@
 
 > [Repositorio no Git-Hub (Backup)] (https://github.com/carvalheirafc/data-frame)
 
-> Usar o arquivo **nas.csv**, pois o arquivo data.csv foi criado para teste. E 
+> Usar o arquivo **nas.csv**, pois o arquivo **data.csv** foi criado para teste. E 
 algumas chamadas na main, passam do limite do tamanho desse arquivo causando
 segmentation-fault.
